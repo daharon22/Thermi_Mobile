@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titleSize">35sp</dimen>
+    <dimen name="buttonLabelSize">20sp</dimen>
+    <dimen name="guidanceSize">20sp</dimen>
+</resources>
