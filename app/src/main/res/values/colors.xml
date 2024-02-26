@@ -6,4 +6,5 @@
     <color name="hintsColor">#F0F0F0</color>
     <color name="buttonColor">#780600</color>
     <color name="guidanceColor">#e97c00</color>
+    <color name="notificationAccentColor">#36c937</color>
 </resources>

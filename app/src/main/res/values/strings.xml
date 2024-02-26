@@ -13,6 +13,14 @@
     <string name="loginButtonLabel">Log in</string>
     <string name="homeTitle">Home</string>
     <string name="preference_file_key">prefFile</string>
+    <string name="thermiTitle">Your Thermuino</string>
+    <string name="probe1Label">Probe 1:</string>
+    <string name="probe2Label">Probe 2:</string>
+    <string name="thermiButtonLabel">My Thermi</string>
+    <string name="tempAlertsChannelName">Temperature Alerts</string>
+    <string name="tempAlertsChannelDescription">Get Notifications when detected temperatures have exceeded set limit</string>
+    <string name="default_notification_channel_id">1</string>
+    <string name="msg_token_fmt">Could not access firebase token Notifications may not work</string>
 
 
 </resources>

@@ -3,4 +3,5 @@
     <dimen name="titleSize">35sp</dimen>
     <dimen name="buttonLabelSize">20sp</dimen>
     <dimen name="guidanceSize">20sp</dimen>
+    <dimen name="labelSize">25sp</dimen>
 </resources>
