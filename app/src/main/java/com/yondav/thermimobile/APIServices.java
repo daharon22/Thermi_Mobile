@@ -20,10 +20,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class APIServices {
 
-    private static final String API_SERVICE_URL_PREFIX = "http://172.16.0.60:3000";
+    //private static final String API_SERVICE_URL_PREFIX = "http://172.16.0.60:3000";
+    private static final String API_SERVICE_URL_PREFIX = "http://www.brydda.com:3000";
     private static final String SIGNUP_SERVICE_URL  = API_SERVICE_URL_PREFIX + "/api/signup";
     private static final String LOGIN_SERVICE_URL  = API_SERVICE_URL_PREFIX + "/api/login";
     private static final String TEMP_SERVICE_URL  = API_SERVICE_URL_PREFIX + "/api/gettemp";
+    private static final String MAX_TEMP_SERVICE_URL  = API_SERVICE_URL_PREFIX + "/api/setMaxTemp";
+    private static final String GET_MAX_TEMP_SERVICE_URL  = API_SERVICE_URL_PREFIX + "/api/getMaxTemp";
     private static final String ADD_FCM_TOKEN_URL  = API_SERVICE_URL_PREFIX + "/api/addfcmtoken";
 
     private APIServiceListener listener;
@@ -176,6 +179,132 @@ public class APIServices {
         try {
 
             URL url = new URL(TEMP_SERVICE_URL);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(t.getValues()));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode=conn.getResponseCode();
+
+            responseCode/=100;
+
+            InputStream is;
+
+            if (responseCode == 2) {
+                is= conn.getInputStream();
+                success=true;
+
+            }
+            else {
+                is= conn.getErrorStream();
+
+            }
+            String line;
+            BufferedReader br=new BufferedReader(new InputStreamReader(is));
+            while ((line=br.readLine()) != null) {
+                response+=line;
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final boolean fsuccess = success;
+        final String fresponse = response;
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                listener.serviceCompleted(fsuccess, fresponse);
+            }
+        });
+
+
+
+
+
+    }
+    public void getMaxTemp(TempRequest t){
+        boolean success = false;
+        String response = "";
+        try {
+
+            URL url = new URL(GET_MAX_TEMP_SERVICE_URL);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(t.getValues()));
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode=conn.getResponseCode();
+
+            responseCode/=100;
+
+            InputStream is;
+
+            if (responseCode == 2) {
+                is= conn.getInputStream();
+                success=true;
+
+            }
+            else {
+                is= conn.getErrorStream();
+
+            }
+            String line;
+            BufferedReader br=new BufferedReader(new InputStreamReader(is));
+            while ((line=br.readLine()) != null) {
+                response+=line;
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final boolean fsuccess = success;
+        final String fresponse = response;
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                listener.serviceCompleted(fsuccess, fresponse);
+            }
+        });
+
+
+
+
+
+    }
+    public void configTemp(TempConfig t){
+        boolean success = false;
+        String response = "";
+        try {
+
+            URL url = new URL(MAX_TEMP_SERVICE_URL);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);

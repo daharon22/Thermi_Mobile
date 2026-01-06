@@ -4,9 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -19,11 +18,17 @@
         android:theme="@style/Theme.ThermiMobile"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ConfigMaxTemp"
+            android:exported="false"
+            android:label="@string/title_activity_config_max_temp"
+            android:theme="@style/Theme.ThermiMobile" />
+
         <service
             android:name=".PushNotificationService"
-            android:exported="false"
+            android:directBootAware="true"
             android:enabled="true"
-            android:directBootAware="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -34,8 +39,12 @@
             android:exported="false" />
         <activity
             android:name=".Device1"
-            android:parentActivityName=".Home"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".ConfigMaxTemps"
+            android:exported="false"
+            android:parentActivityName=".Device1"/>
         <activity
             android:name=".Login"
             android:exported="false" />
@@ -51,18 +60,20 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/notification_icon" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/notificationAccentColor" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
     </application>
 
 </manifest>

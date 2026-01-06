@@ -4,4 +4,6 @@
     <dimen name="buttonLabelSize">20sp</dimen>
     <dimen name="guidanceSize">20sp</dimen>
     <dimen name="labelSize">25sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="configHintSize">15sp</dimen>
 </resources>

@@ -3,6 +3,9 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -22,6 +25,17 @@ public class PushNotificationService extends FirebaseMessagingService {
 
 
         if (remoteMessage.getNotification() != null) {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if(Global.getInstance().getRingtone()!=null){
+                Ringtone r1 = Global.getInstance().getRingtone();
+                r1.play();
+
+            }
+            else{
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                Global.getInstance().setRingtone(r);
+                r.play();
+            }
 
             sendNotif(remoteMessage.getNotification().getTitle(),
                     remoteMessage.getNotification().getBody());
@@ -33,18 +47,23 @@ public class PushNotificationService extends FirebaseMessagingService {
         Intent intent = new Intent(this, Device1.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(textTitle)
                 .setContentText(textContent)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
+                .setSound(notification)
                 .setAutoCancel(true);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
 
+
             NotificationManagerCompat.from(this).notify(1, builder.build());
+
+
 
         }
 

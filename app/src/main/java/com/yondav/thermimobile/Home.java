@@ -48,10 +48,11 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         createNotificationChannel();
         requestNotifPermission();
-        /*
+
         SharedPreferences sharedPref = this.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String tok = sharedPref.getString("token", null);
+
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -97,6 +98,7 @@ public class Home extends AppCompatActivity {
 
                     }
                 });
+        /*
 
         final Handler handler = new Handler();
         final int delay = 10000; // 1000 milliseconds == 1 second
